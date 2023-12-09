@@ -9,17 +9,16 @@ yarn
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+## Cambiar la variable de entorno env.ts dentro cambiar la const devApiUr por la direccion del backend, por defento tiene "http://127.0.0.1:8000/api/" 
 ```bash
-quasar dev
+yarn
+# or
+npm install
 ```
 
-
-### Lint the files
+### Iniciar la aplicacion en modo desarrollo
 ```bash
-yarn lint
-# or
-npm run lint
+npm run dev
 ```
 
 
