@@ -2,10 +2,9 @@
 
 Proyecto para prueba tecnica
 
-## Install the dependencies
+## Install the dependencias
 ```bash
-yarn
-# or
+
 npm install
 ```
 
