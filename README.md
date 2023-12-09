@@ -2,7 +2,7 @@
 
 Proyecto para prueba tecnica
 
-## Install the dependencias
+## Instalar dependencias
 ```bash
 
 npm install
