@@ -13,12 +13,12 @@ export const menuItems: IMenuItem[] = [
     to: '/tareas',
   },
 
-  {
-    id: '1',
-    title: 'Desarrollador',
-    icon: 'img:images/task.svg',
-    iconActive: 'img:images/task_active.svg',
-    to: '/desarrollador',
-  },
+  // {
+  //   id: '1',
+  //   title: 'Desarrollador',
+  //   icon: 'img:images/task.svg',
+  //   iconActive: 'img:images/task_active.svg',
+  //   to: '/desarrollador',
+  // },
 
 ]

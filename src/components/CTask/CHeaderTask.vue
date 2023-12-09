@@ -1,26 +1,51 @@
 <script lang="ts" setup>
-import {  ref, watch } from 'vue';
-import useTask from 'src/composables/useTask.ts'
+import {  ref, watch, computed } from 'vue';
+import {  ITaskForm } from 'src/interfaces/Task';
 
-const {
-  //data
-  loading,
-  search,
+export interface IEmits {
+  (event: 'searchTask', data: string|number|null): void;
+  (event: 'toggleModal', data: boolean): void;
+  (event: 'submitData', data: ITaskForm): void;
 
-  //methos
-  onSearchData
-} = useTask()
+}
 
-const isShowModal = ref(true)
+export interface IProps {
+  loading: boolean;
+  submitLoading: boolean;
+  searchQuery: string|number|null;
+  isShow: boolean;
+}
+
+const emits = defineEmits<IEmits>()
+const props = defineProps<IProps>()
+
 const form = ref({
   title: '',
   description: '',
 
 })
 
-const submit = ()=>{
-  console.log('guardar')
-}
+const search = computed({
+  // getter
+  get() {
+    return props.searchQuery
+  },
+  // setter
+  set(newValue) {
+   emits('searchTask', newValue)
+  }
+})
+
+const isShowModal = computed({
+  // getter
+  get() {
+    return props.isShow
+  },
+  // setter
+  set(newValue) {
+   emits('toggleModal', newValue)
+  }
+})
 
 
 watch(isShowModal, (newValue) => {
@@ -29,6 +54,8 @@ watch(isShowModal, (newValue) => {
     form.value.description = ''
   }
 })
+
+
 </script>
 
 <template>
@@ -41,7 +68,7 @@ watch(isShowModal, (newValue) => {
         debounce="500"
         v-model="search"
         placeholder="Buscar"
-        @update:model-value="onSearchData"
+        @update:model-value="$emit('searchTask', $event)"
         bg-color="white"
         label-color="primary"
       >
@@ -59,12 +86,10 @@ watch(isShowModal, (newValue) => {
         <q-icon name="add"></q-icon>
         <span class="q-ml-sm">Agregar Tarea</span>
       </q-btn>
-
-
     </article>
     <q-dialog v-model="isShowModal" >
       <q-card class="bg-white modal border-md q-px-md q-pt-sm">
-        <q-form @submit.prevent="submit" class="row">
+        <q-form @submit.prevent="$emit('submitData', {...form})" class="row">
           <q-card-section class="col-12 q-pa-none flex justify-between items-center">
             <article class="font-13 w-500 secondary">Crear tarea</article>
             <q-btn
@@ -114,7 +139,6 @@ watch(isShowModal, (newValue) => {
           </q-card-section>
           <q-card-section class="q-pa-none q-pt-xl full-width q-pb-md">
             <article class="q-col-gutter-md row">
-
               <div class="col-6">
                 <q-btn
                   outline
@@ -135,6 +159,7 @@ watch(isShowModal, (newValue) => {
                   text-color="primary"
                   color="secondary"
                   label="Aceptar"
+                  :loading="submitLoading"
                   no-caps
                   unelevated
                   type="submit"

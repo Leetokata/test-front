@@ -37,3 +37,22 @@
   min-height: 60vh;
   width: 50vw;
 }
+.chip{
+
+}
+.chip-cancel{
+  background: #fcdddb;
+  color: #c52a1f;
+}
+.chip-pending{
+  background: #e0e0e0;
+  color: #5a647a ;
+}
+.chip-approved{
+  background: #c9f8d9;
+  color: #039659
+}
+
+.semi-capitalize::first-letter{
+  text-transform: capitalize;
+}
